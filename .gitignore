@@ -1,0 +1,12 @@
+node_modules/
+.expo/
+dist/
+coverage/
+.env
+.env.local
+.DS_Store
+backend/uploads/
+frontend/.expo/
+frontend/.env
+backend/.env
+

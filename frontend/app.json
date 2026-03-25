@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Inventory Management",
+    "slug": "inventory-management-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#f5f7fb"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#f5f7fb"
+      }
+    }
+  }
+}
+
