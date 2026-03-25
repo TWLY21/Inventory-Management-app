@@ -5,8 +5,8 @@ coverage/
 .env
 .env.local
 .DS_Store
+.idea/
 backend/uploads/
 frontend/.expo/
 frontend/.env
 backend/.env
-
