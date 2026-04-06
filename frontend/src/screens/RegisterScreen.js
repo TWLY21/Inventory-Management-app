@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import {useState} from 'react';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 
 import InputField from '../components/InputField';
 import PrimaryButton from '../components/PrimaryButton';
 import ScreenContainer from '../components/ScreenContainer';
 import SectionCard from '../components/SectionCard';
-import { useAuth } from '../context/AuthContext';
+import {useAuth} from '../context/AuthContext';
 
 const roles = ['USER', 'ADMIN'];
 
-export default function RegisterScreen({ navigation }) {
-  const { register, user } = useAuth();
+export default function RegisterScreen({navigation}) {
+  const {register, user} = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,14 +28,20 @@ export default function RegisterScreen({ navigation }) {
       });
 
       if (user?.role === 'ADMIN') {
-        Alert.alert('User created', 'The new account has been created successfully.');
+        Alert.alert(
+          'User created',
+          'The new account has been created successfully.',
+        );
         navigation.goBack();
         return;
       }
 
       Alert.alert('Account created', 'You are now signed in.');
     } catch (error) {
-      Alert.alert('Registration failed', error.response?.data?.message || 'Unable to register');
+      Alert.alert(
+        'Registration failed',
+        error.response?.data?.message || 'Unable to register',
+      );
     } finally {
       setSubmitting(false);
     }
@@ -45,9 +51,13 @@ export default function RegisterScreen({ navigation }) {
     <ScreenContainer>
       <SectionCard
         title={user?.role === 'ADMIN' ? 'Create New User' : 'Register'}
-        subtitle="Use this form to create a staff or admin account."
-      >
-        <InputField label="Full Name" value={name} onChangeText={setName} placeholder="Jane Doe" />
+        subtitle="Use this form to create a staff or admin account.">
+        <InputField
+          label="Full Name"
+          value={name}
+          onChangeText={setName}
+          placeholder="Jane Doe"
+        />
         <InputField
           label="Email"
           value={email}
@@ -64,7 +74,7 @@ export default function RegisterScreen({ navigation }) {
 
         {user?.role === 'ADMIN' ? (
           <View style={styles.roleRow}>
-            {roles.map((item) => (
+            {roles.map(item => (
               <PrimaryButton
                 key={item}
                 title={item}
@@ -75,7 +85,11 @@ export default function RegisterScreen({ navigation }) {
           </View>
         ) : null}
 
-        <PrimaryButton title="Submit" onPress={handleRegister} loading={submitting} />
+        <PrimaryButton
+          title="Submit"
+          onPress={handleRegister}
+          loading={submitting}
+        />
       </SectionCard>
 
       {!user ? (
@@ -98,4 +112,3 @@ const styles = StyleSheet.create({
     color: '#0f172a',
   },
 });
-

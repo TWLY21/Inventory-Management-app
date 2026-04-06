@@ -1,24 +1,26 @@
-import { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
+import {useEffect, useState} from 'react';
+import {Alert, StyleSheet, Text, View} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 
 import PrimaryButton from '../components/PrimaryButton';
 import ScreenContainer from '../components/ScreenContainer';
 import SectionCard from '../components/SectionCard';
-import { useAuth } from '../context/AuthContext';
-import { productApi, userApi } from '../services/api';
+import {useAuth} from '../context/AuthContext';
+import {productApi, userApi} from '../services/api';
 
-export default function DashboardScreen({ navigation }) {
-  const { user, logout } = useAuth();
+export default function DashboardScreen({navigation}) {
+  const {user, logout} = useAuth();
   const isFocused = useIsFocused();
-  const [summary, setSummary] = useState({ products: 0, users: 0 });
+  const [summary, setSummary] = useState({products: 0, users: 0});
 
   useEffect(() => {
     async function loadSummary() {
       try {
         const [productsResponse, usersResponse] = await Promise.all([
           productApi.getAll(),
-          user?.role === 'ADMIN' ? userApi.getAll() : Promise.resolve({ data: [] }),
+          user?.role === 'ADMIN'
+            ? userApi.getAll()
+            : Promise.resolve({data: []}),
         ]);
 
         setSummary({
@@ -26,7 +28,10 @@ export default function DashboardScreen({ navigation }) {
           users: usersResponse.data.length,
         });
       } catch (error) {
-        Alert.alert('Unable to load dashboard', error.response?.data?.message || 'Try again later');
+        Alert.alert(
+          'Unable to load dashboard',
+          error.response?.data?.message || 'Try again later',
+        );
       }
     }
 
@@ -43,22 +48,26 @@ export default function DashboardScreen({ navigation }) {
     <ScreenContainer>
       <SectionCard
         title={`Welcome, ${user?.name}`}
-        subtitle={`Signed in as ${user?.role}. Use the modules below to manage inventory operations.`}
-      >
+        subtitle={`Signed in as ${user?.role}. Use the modules below to manage inventory operations.`}>
         <View style={styles.statsRow}>
           <View style={styles.statBox}>
             <Text style={styles.statValue}>{summary.products}</Text>
             <Text style={styles.statLabel}>Products</Text>
           </View>
           <View style={styles.statBox}>
-            <Text style={styles.statValue}>{user?.role === 'ADMIN' ? summary.users : '--'}</Text>
+            <Text style={styles.statValue}>
+              {user?.role === 'ADMIN' ? summary.users : '--'}
+            </Text>
             <Text style={styles.statLabel}>Users</Text>
           </View>
         </View>
       </SectionCard>
 
       <SectionCard title="Modules">
-        <PrimaryButton title="View Products" onPress={() => navigation.navigate('Products')} />
+        <PrimaryButton
+          title="View Products"
+          onPress={() => navigation.navigate('Products')}
+        />
         <PrimaryButton
           title="Stock Management"
           variant="secondary"
@@ -71,7 +80,11 @@ export default function DashboardScreen({ navigation }) {
             onPress={() => navigation.navigate('Register')}
           />
         ) : null}
-        <PrimaryButton title="Logout" variant="secondary" onPress={handleLogout} />
+        <PrimaryButton
+          title="Logout"
+          variant="secondary"
+          onPress={handleLogout}
+        />
       </SectionCard>
     </ScreenContainer>
   );
@@ -100,4 +113,3 @@ const styles = StyleSheet.create({
     color: '#64748b',
   },
 });
-

@@ -1,6 +1,6 @@
 # Inventory Management Mobile Application
 
-Production-style project skeleton for a mobile inventory management system with a React Native (Expo) frontend and a Node.js + Express + PostgreSQL backend.
+Production-style project skeleton for a mobile inventory management system with a React Native CLI frontend and a Node.js + Express + PostgreSQL backend.
 
 ## Project Structure
 
@@ -40,7 +40,7 @@ inventory-management-app/
 
 ## Frontend Highlights
 
-- Expo-based React Native app
+- Pure React Native CLI app (no Expo runtime)
 - Auth context with persisted JWT session
 - Stack navigation for auth and app flows
 - API service layer using Axios
@@ -68,12 +68,25 @@ npm run dev
 
 ```bash
 cd frontend
-cp .env.example .env
 npm install
-npx expo start
 ```
 
-Set `EXPO_PUBLIC_API_URL` to your reachable backend URL, for example `http://192.168.1.100:5000/api` for a physical device.
+Start Metro in one terminal:
+
+```bash
+npm run start
+```
+
+With Android Emulator running, launch the app in a second terminal:
+
+```bash
+cd frontend
+npm run android
+```
+
+Set your backend URL in `frontend/src/config/apiConfig.js`.
+For Android Emulator use `http://10.0.2.2:5000/api`.
+For a physical device use your machine LAN IP, for example `http://192.168.1.100:5000/api`.
 
 ## Suggested Enhancements
 

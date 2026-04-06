@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
-export default function SectionCard({ title, subtitle, children }) {
+export default function SectionCard({title, subtitle, children}) {
   return (
     <View style={styles.card}>
       {title ? <Text style={styles.title}>{title}</Text> : null}
@@ -29,4 +29,3 @@ const styles = StyleSheet.create({
     color: '#475569',
   },
 });
-

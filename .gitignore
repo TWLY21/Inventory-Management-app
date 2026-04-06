@@ -1,5 +1,4 @@
 node_modules/
-.expo/
 dist/
 coverage/
 .env
@@ -7,6 +6,9 @@ coverage/
 .DS_Store
 .idea/
 backend/uploads/
-frontend/.expo/
 frontend/.env
 backend/.env
+frontend/android/local.properties
+frontend/android/.gradle/
+frontend/ios/Pods/
+frontend/.gradle-home/

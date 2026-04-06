@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {API_BASE_URL} from '../config/apiConfig';
 
 const apiClient = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_URL || 'http://localhost:5000/api',
+  baseURL: API_BASE_URL,
   timeout: 10000,
 });
 
@@ -19,20 +20,21 @@ function unwrap(response) {
 }
 
 export const authApi = {
-  login: (payload) => apiClient.post('/auth/login', payload).then(unwrap),
-  register: (payload) => apiClient.post('/auth/register', payload).then(unwrap),
+  login: payload => apiClient.post('/auth/login', payload).then(unwrap),
+  register: payload => apiClient.post('/auth/register', payload).then(unwrap),
 };
 
 export const productApi = {
   getAll: () => apiClient.get('/products').then(unwrap),
-  create: (payload) => apiClient.post('/products', payload).then(unwrap),
-  update: (id, payload) => apiClient.put(`/products/${id}`, payload).then(unwrap),
-  remove: (id) => apiClient.delete(`/products/${id}`).then(unwrap),
+  create: payload => apiClient.post('/products', payload).then(unwrap),
+  update: (id, payload) =>
+    apiClient.put(`/products/${id}`, payload).then(unwrap),
+  remove: id => apiClient.delete(`/products/${id}`).then(unwrap),
 };
 
 export const stockApi = {
-  stockIn: (payload) => apiClient.post('/stock/in', payload).then(unwrap),
-  stockOut: (payload) => apiClient.post('/stock/out', payload).then(unwrap),
+  stockIn: payload => apiClient.post('/stock/in', payload).then(unwrap),
+  stockOut: payload => apiClient.post('/stock/out', payload).then(unwrap),
 };
 
 export const userApi = {
@@ -40,4 +42,3 @@ export const userApi = {
 };
 
 export default apiClient;
-

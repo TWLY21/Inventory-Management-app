@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
-export default function EmptyState({ title, subtitle }) {
+export default function EmptyState({title, subtitle}) {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.title}>{title}</Text>

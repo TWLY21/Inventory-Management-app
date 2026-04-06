@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
+import {useEffect, useState} from 'react';
+import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 
 import EmptyState from '../components/EmptyState';
 import InputField from '../components/InputField';
 import PrimaryButton from '../components/PrimaryButton';
 import ScreenContainer from '../components/ScreenContainer';
 import SectionCard from '../components/SectionCard';
-import { productApi, stockApi } from '../services/api';
+import {productApi, stockApi} from '../services/api';
 
 export default function StockScreen() {
   const isFocused = useIsFocused();
@@ -22,7 +22,10 @@ export default function StockScreen() {
         const response = await productApi.getAll();
         setProducts(response.data);
       } catch (error) {
-        Alert.alert('Unable to load stock data', error.response?.data?.message || 'Try again later');
+        Alert.alert(
+          'Unable to load stock data',
+          error.response?.data?.message || 'Try again later',
+        );
       }
     }
 
@@ -33,7 +36,10 @@ export default function StockScreen() {
 
   async function handleStockAction(type) {
     if (!selectedProduct) {
-      Alert.alert('Select a product', 'Choose a product before updating stock.');
+      Alert.alert(
+        'Select a product',
+        'Choose a product before updating stock.',
+      );
       return;
     }
 
@@ -52,7 +58,8 @@ export default function StockScreen() {
 
       const refreshedProducts = await productApi.getAll();
       const nextProducts = refreshedProducts.data;
-      const nextSelection = nextProducts.find((item) => item.id === selectedProduct.id) || null;
+      const nextSelection =
+        nextProducts.find(item => item.id === selectedProduct.id) || null;
 
       setProducts(nextProducts);
       setSelectedProduct(nextSelection);
@@ -60,7 +67,10 @@ export default function StockScreen() {
 
       Alert.alert('Success', type === 'IN' ? 'Stock added.' : 'Stock removed.');
     } catch (error) {
-      Alert.alert('Unable to update stock', error.response?.data?.message || 'Try again later');
+      Alert.alert(
+        'Unable to update stock',
+        error.response?.data?.message || 'Try again later',
+      );
     } finally {
       setSubmitting(false);
     }
@@ -70,12 +80,13 @@ export default function StockScreen() {
     <ScreenContainer>
       <SectionCard
         title="Stock Management"
-        subtitle="Select a product and record stock moving in or out of inventory."
-      >
+        subtitle="Select a product and record stock moving in or out of inventory.">
         {selectedProduct ? (
           <View style={styles.selectedBox}>
             <Text style={styles.selectedTitle}>{selectedProduct.name}</Text>
-            <Text style={styles.selectedMeta}>Current quantity: {selectedProduct.quantity}</Text>
+            <Text style={styles.selectedMeta}>
+              Current quantity: {selectedProduct.quantity}
+            </Text>
           </View>
         ) : (
           <EmptyState
@@ -92,7 +103,11 @@ export default function StockScreen() {
           placeholder="Enter quantity"
         />
 
-        <PrimaryButton title="Stock In" onPress={() => handleStockAction('IN')} loading={submitting} />
+        <PrimaryButton
+          title="Stock In"
+          onPress={() => handleStockAction('IN')}
+          loading={submitting}
+        />
         <PrimaryButton
           title="Stock Out"
           variant="secondary"
@@ -103,22 +118,30 @@ export default function StockScreen() {
 
       <SectionCard title="Products">
         {products.length === 0 ? (
-          <EmptyState title="No products found" subtitle="Products will appear here once they are created." />
+          <EmptyState
+            title="No products found"
+            subtitle="Products will appear here once they are created."
+          />
         ) : (
-          products.map((product) => (
+          products.map(product => (
             <Pressable
               key={product.id}
               style={[
                 styles.productRow,
-                selectedProduct?.id === product.id ? styles.productRowActive : null,
+                selectedProduct?.id === product.id
+                  ? styles.productRowActive
+                  : null,
               ]}
-              onPress={() => setSelectedProduct(product)}
-            >
+              onPress={() => setSelectedProduct(product)}>
               <View>
                 <Text style={styles.productName}>{product.name}</Text>
-                <Text style={styles.productMeta}>Quantity: {product.quantity}</Text>
+                <Text style={styles.productMeta}>
+                  Quantity: {product.quantity}
+                </Text>
               </View>
-              <Text style={styles.productMeta}>${Number(product.price).toFixed(2)}</Text>
+              <Text style={styles.productMeta}>
+                ${Number(product.price).toFixed(2)}
+              </Text>
             </Pressable>
           ))
         )}

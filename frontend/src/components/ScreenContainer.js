@@ -1,16 +1,22 @@
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView, StyleSheet, View} from 'react-native';
 
-export default function ScreenContainer({ children, scroll = true, contentStyle }) {
+export default function ScreenContainer({
+  children,
+  scroll = true,
+  contentStyle,
+}) {
   const content = (
-    <View style={[styles.content, contentStyle]}>
-      {children}
-    </View>
+    <View style={[styles.content, contentStyle]}>{children}</View>
   );
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      {scroll ? <ScrollView contentContainerStyle={styles.scroll}>{content}</ScrollView> : content}
+      {scroll ? (
+        <ScrollView contentContainerStyle={styles.scroll}>{content}</ScrollView>
+      ) : (
+        content
+      )}
     </SafeAreaView>
   );
 }
@@ -29,4 +35,3 @@ const styles = StyleSheet.create({
     gap: 16,
   },
 });
-

@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createContext, useContext, useEffect, useState } from 'react';
+import {createContext, useContext, useEffect, useState} from 'react';
 
-import { authApi, setAccessToken } from '../services/api';
+import {authApi, setAccessToken} from '../services/api';
 
 const STORAGE_KEY = 'inventory-auth-session';
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
+export function AuthProvider({children}) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -71,8 +71,7 @@ export function AuthProvider({ children }) {
         login,
         register,
         logout: clearSession,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );
@@ -87,4 +86,3 @@ export function useAuth() {
 
   return context;
 }
-

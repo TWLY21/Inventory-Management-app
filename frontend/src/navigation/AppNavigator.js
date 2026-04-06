@@ -1,8 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ActivityIndicator, View } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {ActivityIndicator, View} from 'react-native';
 
-import { useAuth } from '../context/AuthContext';
+import {useAuth} from '../context/AuthContext';
 import DashboardScreen from '../screens/DashboardScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
@@ -20,8 +20,7 @@ function FullScreenLoader() {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#f5f7fb',
-      }}
-    >
+      }}>
       <ActivityIndicator size="large" color="#0f172a" />
     </View>
   );
@@ -29,35 +28,39 @@ function FullScreenLoader() {
 
 function AuthStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShadowVisible: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Sign In' }} />
+    <Stack.Navigator screenOptions={{headerShadowVisible: false}}>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{title: 'Sign In'}}
+      />
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
-        options={{ title: 'Create Account' }}
+        options={{title: 'Create Account'}}
       />
     </Stack.Navigator>
   );
 }
 
 function AppStack() {
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   return (
-    <Stack.Navigator screenOptions={{ headerShadowVisible: false }}>
+    <Stack.Navigator screenOptions={{headerShadowVisible: false}}>
       <Stack.Screen name="Dashboard" component={DashboardScreen} />
       <Stack.Screen name="Products" component={ProductListScreen} />
       <Stack.Screen
         name="ProductDetail"
         component={ProductDetailScreen}
-        options={{ title: 'Product Details' }}
+        options={{title: 'Product Details'}}
       />
       <Stack.Screen name="Stock" component={StockScreen} />
       {user?.role === 'ADMIN' ? (
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
-          options={{ title: 'Create User' }}
+          options={{title: 'Create User'}}
         />
       ) : null}
     </Stack.Navigator>
@@ -65,7 +68,7 @@ function AppStack() {
 }
 
 export default function AppNavigator() {
-  const { loading, isAuthenticated } = useAuth();
+  const {loading, isAuthenticated} = useAuth();
 
   if (loading) {
     return <FullScreenLoader />;
@@ -77,4 +80,3 @@ export default function AppNavigator() {
     </NavigationContainer>
   );
 }
-

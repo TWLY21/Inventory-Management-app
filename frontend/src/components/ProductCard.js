@@ -1,13 +1,15 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default function ProductCard({ product, onPress }) {
+export default function ProductCard({product, onPress}) {
   return (
     <Pressable onPress={onPress} style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.name}>{product.name}</Text>
         <Text style={styles.price}>${Number(product.price).toFixed(2)}</Text>
       </View>
-      <Text style={styles.description}>{product.description || 'No description provided.'}</Text>
+      <Text style={styles.description}>
+        {product.description || 'No description provided.'}
+      </Text>
       <View style={styles.footer}>
         <Text style={styles.meta}>Qty: {product.quantity}</Text>
         <Text style={styles.meta}>Tap to view</Text>
@@ -54,4 +56,3 @@ const styles = StyleSheet.create({
     color: '#64748b',
   },
 });
-

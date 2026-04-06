@@ -1,4 +1,4 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
+import {ActivityIndicator, Pressable, StyleSheet, Text} from 'react-native';
 
 export default function PrimaryButton({
   title,
@@ -17,12 +17,17 @@ export default function PrimaryButton({
         styles.button,
         variant === 'secondary' ? styles.secondary : styles.primary,
         isDisabled && styles.disabled,
-      ]}
-    >
+      ]}>
       {loading ? (
-        <ActivityIndicator color={variant === 'secondary' ? '#0f172a' : '#ffffff'} />
+        <ActivityIndicator
+          color={variant === 'secondary' ? '#0f172a' : '#ffffff'}
+        />
       ) : (
-        <Text style={[styles.text, variant === 'secondary' ? styles.secondaryText : null]}>
+        <Text
+          style={[
+            styles.text,
+            variant === 'secondary' ? styles.secondaryText : null,
+          ]}>
           {title}
         </Text>
       )}
@@ -56,4 +61,3 @@ const styles = StyleSheet.create({
     color: '#0f172a',
   },
 });
-
